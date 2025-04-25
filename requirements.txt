@@ -1,0 +1,5 @@
+selenium==4.10.0
+requests==2.31.0
+torpy==1.1.6
+randomuser==1.6
+faker==18.11.1
