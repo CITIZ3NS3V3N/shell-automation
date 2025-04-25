@@ -1,0 +1,22 @@
+name: Shell Company Automation
+on:
+  schedule:
+    - cron: '0 0 * * *'  # Runs daily at midnight UTC
+  workflow_dispatch:      # Allows manual trigger from GitHub UI
+jobs:
+  automate:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Install Python dependencies
+        run: pip install -r requirements.txt
+      - name: Run Seychelles shell script
+        run: python seychelles_shell.py
+      - name: Run bank account script
+        run: python bank_account.py
+      - name: Run cover tracks script
+        run: python cover_tracks.py
+      - name: Send Telegram notification
+        run: |
+          curl -X POST "https://api.telegram.org/bot7842576178:AAGgFMorst4Ar9p8p05i5a5LYJFCfs3fjgI/sendMessage" \
+          -d chat_id=4719388768 -d text="Automation complete!"
